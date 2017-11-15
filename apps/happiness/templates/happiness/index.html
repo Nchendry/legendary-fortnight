@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    #register {
+        display: inline-block;
+        vertical-align: top;
+    }
+    #login {
+        display: inline-block;
+        vertical-align: top;
+    }
+    #register input{
+        display: block;
+        margin: 10px;
+    }
+    #register p{
+        display: block;
+        margin: 10px;
+    }
+    #login input{
+        display: block;
+        margin: 10px; 
+    }
+</style>
+    <form id ='register' action="/register" method = 'post' >
+        {% csrf_token %}
+        <h1>Register: </h1>
+        Name: <input type="text" name='name'>
+        Alias: <input type="text" name='alias'>
+        Email: <input type="text" name='email'>
+        Password: <input type="text" name='password'>
+        Confirm Password: <input type="text" name='confirm_password'>
+        <input type="submit" value='submit'>
+    </form>
+
+    <form id ='login' action="/login" method = 'post'>
+        {% csrf_token %}
+        <h1>Login yo: </h1>
+        Email: <input type="text" name= 'email'>
+        Password: <input type="text" name= 'password'>
+        <input type="submit" value='submit'>        
+    </form>
+
+     {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+</html>
+
+<!-- HIDDEN VALUES -->

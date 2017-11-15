@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Welcome {{request.session.name}}!</h1>
+    <a href="/logout">Get outta here</a>
+
+
+
+    <h2>Yo Dawg I heard you like quotes</h2>
+    <div id='xzhibit'>
+        {% for quote in quotes %}
+        <div class='quotes'>
+            <p>{{quote.author}}: {{quote.message}}</p>
+            Posted by
+            
+            {{quote.id}}
+            <a href="users/{{quote.posted_by.id}}">{{quote.posted_by.name}}</a>
+                <form id='addtolist' action="/addtolist" method='post'>
+                {% csrf_token %}
+                <input type="hidden" name='id' value='{{quote.id}}'>
+                <input type="submit" value='Add to List'>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+        {{list}}
+    <h2>How'd you know I like some quotes</h2>
+    <h3>'favorites'</h3>
+    <div id='favorites'>
+            <div class = "quotes">
+                {% for lists in list %}
+                <p>{{lists.author}}: {{lists.message}}</p>
+                Posted by
+                {% endfor %}
+            </div>
+        </div>
+
+    <div class ='contribute'>
+    <form id ='add' action="/add" method = 'post'>
+        {% csrf_token %}
+        <h1>Yea I know some quotes Dawg</h1>
+        Quoted By: <input type="text" name= 'author'><br><br>
+        Message: <textarea name="message" cols="30" rows="1"></textarea><br><br>
+        <input type="hidden" name ='user' value = '{{request.session.user}}'>
+        <input type="submit" value='submit'>        
+    </form>
+    {% if messages %}
+    <ul class="warnings">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+</body>
+</html>
